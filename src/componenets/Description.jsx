@@ -8,7 +8,7 @@ const Description = () => {
         <p className='text-gray-500 mb-8'>Turn your imaginations into visuals</p>
 
         <div className='flex flex-col gap-5 md:gap-14 md:flex-row'>
-            <img src={assets.sample_img_1} alt="" className='w-80 xl:w-96 rounded-lg' />
+            <img src={assets.sample_img_1} alt="Sample AI generated image" className='w-80 xl:w-96 rounded-lg' />
             <div>
                 <h2 className='text-3xl font-medium max-w-lg mb-4'>Introducing to Ai Powered Text to Image Generator</h2>
                 <p className='text-gray-600 mb-4'>Words to wonders. Get ready to see your written ideas become incredible images. Fast, creative, and incredibly simple.</p>

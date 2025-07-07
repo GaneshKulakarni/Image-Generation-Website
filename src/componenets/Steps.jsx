@@ -9,8 +9,8 @@ const Steps = () => {
             <p className='text-lg text-gray-600 mb-8'>Transform words Into Stunning Images</p>
             <div className='space-y-4 w-full max-w-3xl text-sm'>
                 {stepsData.map((item, index) => (
-                    <div  key={index} className='flex item-center gap-4 p-5 px-8 bg-white/20 shadow-md cursor-pointer hover:scale-[1.02] border border-transparent hover:border-blue-500 transition-all duration-300 rounded-lg'>
-                         <img src={item.icon} alt="" />
+                    <div  key={index} className='flex items-center gap-4 p-5 px-8 bg-white/20 shadow-md cursor-pointer hover:scale-[1.02] border border-transparent hover:border-blue-500 transition-all duration-300 rounded-lg'>
+                         <img src={item.icon} alt={item.title} />
                         <div>
                             <h2 className='text-xl font-medium'>{item.title}</h2>
                             <p className='text-gray-500'>{item.description}</p>
