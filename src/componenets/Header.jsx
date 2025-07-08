@@ -1,9 +1,17 @@
 import React from 'react'
+import { motion } from "framer-motion"
 import { assets } from '../assets/assets'
+
 
 const Header = () => {
   return (
-    <div className='flex flex-col items-center text-center justify-center'>
+    <motion.div className='flex flex-col items-center text-center justify-center my-20'
+    initial= {{opacity:0.2,y:100}}
+    transition={{duration:1}}
+    whileInView={{opacity:1,y:0}}
+    viewport={{once:true}}
+    >
+
         <div className='text-stone-700 inline-flex text-center mt-20 gap-2 bg-gray-50 px-6 py-1 rounded-full border border-neutral-700 border-solid border-y-2'>
             <p>
                 Best to image generator</p>
@@ -22,7 +30,7 @@ const Header = () => {
         ))}
        </div>
        <p>Generate iages from imagefy</p>
-    </div>
+    </motion.div>
     
   )
 }
