@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
 import {motion} from "framer-motion"
 import { AppContext } from '../contexts/AppContext'
