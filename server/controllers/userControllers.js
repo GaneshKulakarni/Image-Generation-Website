@@ -49,24 +49,33 @@ const loginUser = async (req, res) => {
         }
         else {
             return res.status(401).json({ success: false, message: "Invalid password" })
-        }
+        }  
     }
     catch (error) {
         console.log(error);
         res.status(500).json({ success: false, message: error.message })
     }
 
-    const userCredits=async (req,res)=>{
-        try{
-            const{userId}=req.body;
+}
 
-            const user=await userModel.findById(userId)
-            res.json({success:true,credits:user.creditBalance,user:{nmae: user.name}})
+const userCredits = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const user = await userModel.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
         }
-        catch(error){
-            console.log(error.message)
-            res.json({success:false,message:errpr.message})
-        }
+
+        res.json({ 
+            success: true, 
+            credits: user.creditBalance || 0, 
+            user: { name: user.name } 
+        });
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).json({ success: false, message: error.message });
     }
 }
-export default {registerUser,loginUser}
+export {registerUser,loginUser,userCredits}
