@@ -14,16 +14,27 @@ app.use(cors());
 // Connect to database and start server
 const startServer = async () => {
     try {
-        await connectDB();
-        console.log("Database connected successfully");
+        const connection = await connectDB();
+        if (!connection) {
+            throw new Error('Database connection failed');
+        }
         
+        // Set up routes
         app.use('/api/user', userRouter);
         app.use('/api/image', ImageRouter);
 
+        // Root route
         app.get("/", (req, res) => { 
             res.send("Server is running");
         });
 
+        // Error handling middleware
+        app.use((err, req, res, next) => {
+            console.error(err.stack);
+            res.status(500).send({ message: 'Something went wrong!', error: err.message });
+        });
+
+        // Start server
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
         });

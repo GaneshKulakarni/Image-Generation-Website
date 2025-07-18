@@ -1,6 +1,6 @@
 import userModel from "../models/UserModel.js"
-import { loginUser, registerUser, userCredits } from "./userControllers"
 import FormData from "form-data"
+import axios from "axios"
 
 
 export const generateImage = async (req, res) => {
@@ -13,8 +13,8 @@ export const generateImage = async (req, res) => {
             return res.json({ success: false, message: 'Missing Details' })           
         }
 
-        if (user.creditBalance === 0 || userModel.creditBalance < 0) {
-            return res.json({ success: false, message: 'Missing Details', creditBalance: user.creditBalance })
+        if (!user.creditBalance || user.creditBalance <= 0) {
+            return res.json({ success: false, message: 'Insufficient credits', creditBalance: user.creditBalance || 0 })
         }
 
         const formData = new FormData()
@@ -27,9 +27,9 @@ export const generateImage = async (req, res) => {
             responseType:'arraybuffer'
         })
         const base64Image=Buffer.from(data,'binary').toString('base64')
-        const resultImage=`data:/image/png;base64,${base64Image}`
+        const resultImage=`data:image/png;base64,${base64Image}`
 
-        await userModel.findByIdAndUpdate(user._id,{creditsBalance:user.creditsBalance-1})
+        await userModel.findByIdAndUpdate(user._id, {creditBalance: user.creditBalance - 1})
 
         res.json({success:true,message:"Image Generated",creditBalance:user.creditBalance-1,resultImage})
 
