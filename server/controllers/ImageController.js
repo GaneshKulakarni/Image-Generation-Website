@@ -39,3 +39,5 @@ export const generateImage = async (req, res) => {
 
     }
 }
+
+export default generateImage;
