@@ -67,7 +67,7 @@ const loginUser = async (req, res) => {
 
 const userCredits = async (req, res) => {
     try {
-        const userId = req.body.userId; // <-- Use user from JWT
+        const userId = req.user.id; // <-- Use user from JWT
         const user = await userModel.findById(userId);
 
 

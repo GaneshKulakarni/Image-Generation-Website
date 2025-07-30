@@ -10,42 +10,43 @@ const AppContextProvider = (props) => {
   const [user, setUser] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('token'))
-  const [credit, setCredit] = useState(false)
+  const [credit, setCredit] = useState(0)
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const localCreditsData = async () => {
-     try {
-    const { data } = await axios.get(
-      backendUrl + '/api/user/credits',
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    if (data.success) {
-      setCredit(data.credits);
-      setUser(data.user);
+    try {
+      const { data } = await axios.get(
+        backendUrl + '/api/user/credit',
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (data.success) {
+        setCredit(data.credits);
+        setUser(data.user);
+      }
+      console.log(data)
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
     }
-  } catch (error) {
-    console.log(error);
-    toast.error(error.message);
-  }
-};
+  };
   const generateImage = async (prompt) => {
     try {
-      const { data } = await axios.post(backendUrl + '/api/image/generate-image', { prompt }, { headers: { Authorization: `Bearer ${token}` } });
+      const { data } = await axios.post(backendUrl + '/api/image/generate-image', { prompt, token }, { headers: { Authorization: `Bearer ${token}` } });
 
-      if (data.success){
+      if (data.success) {
         localCreditsData()
       }
-      else{
+      else {
         toast.error(data.message)
         localCreditsData()
-        if(data.creditBalance==0){
+        if (data.creditBalance == 0) {
           navigate('/buy')
 
         }
       }
-        return data.resultImage;
+      return data.resultImage;
     } catch (error) {
       toast.error(error.message)
 
@@ -67,7 +68,7 @@ const AppContextProvider = (props) => {
 
 
   const value = {
-    user, setUser, showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, localCreditsData, logout,generateImage
+    user, setUser, showLogin, setShowLogin, backendUrl, token, setToken, credit, setCredit, localCreditsData, logout, generateImage
   }
   return (
     <AppContext.Provider value={value}>

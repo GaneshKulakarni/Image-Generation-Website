@@ -6,11 +6,11 @@ import { AppContext } from '../contexts/AppContext'
 
 const Result = () => {
   const [image, setImage] = useState(assets.sample_img_1)
-  const [IsImageLoded, setIsImageLoded] = useState(true)
-  const [loading,setLoading]=useState(true)
-  const [input,setInput]=useState('')
+  const [IsImageLoded, setIsImageLoded] = useState(false)
+  const [loading,setLoading]=useState(false)
+  const [input,setInput]=useState('create  image of a')
 
-  const {genetateImage}=useContext(AppContext)
+  const {generateImage}=useContext(AppContext)
 
 const onSubmitHandler = async (e) =>{
   e.preventDefault();
